@@ -33,7 +33,7 @@ function processMessage($buscar) {
         ));*/
 
         sendMessage(array(
-            "fulfillmentText" => "En numero de viaje ".$nroViaje."  Se cuentra en estado ".$estado." por un valor de ".$valorPago, " Si desea consultar otro numero lo puedes ingresar "
+            "fulfillmentText" => "En numero de viaje ".$nroViaje."  Se cuentra en estado ".$estado." por un valor de ".$valorPago, " Si desea consultar otro numero lo puedes ingresar ",
             "source"=> "stobon"
         ));
     }else{
