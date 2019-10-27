@@ -18,7 +18,7 @@ function processMessage($update) {
             mysql_select_db('seway_development') or die('No se pudo seleccionar la base de datos');
 
             // Realizar una consulta MySQL
-            $query = 'SELECT * FROM user where id='6'';
+            $query = 'SELECT * FROM user where id="6"';
             $result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
         
         //creamos el mensaje a mostrar al usuario
