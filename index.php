@@ -10,20 +10,21 @@ function processMessage($update) {
         //obtenemos la temperatura
         $temperatura = getTemperatura($city);
 
-        // Conectando, seleccionando la base de datos
-            $link = mysql_connect('development.cu3olghkjz6o.us-east-1.rds.amazonaws.com',
-             'dirdesarrollo', 'Asd789***')
-                or die('No se pudo conectar: ' . mysql_error());
-                echo 'Connected successfully';
-            mysql_select_db('seway_development') or die('No se pudo seleccionar la base de datos');
+                  $link = mysqli_connect("190.8.176.14", "masalc_stobon", "Stobon7120@");
 
-            // Realizar una consulta MySQL
-            $query = 'SELECT * FROM user where id="6"';
-            $result = mysql_query($query) or die('Consulta fallida: ' . mysql_error());
+                mysqli_select_db($link, "masalc_acarreos");
+                $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
+                $result = mysqli_query($link, "SELECT * FROM users where id='9'");
+                mysqli_data_seek ($result, 0);
+                $extraido= mysqli_fetch_array($result);
+
+                mysqli_free_result($result);
+
+                mysqli_close($link);
         
         //creamos el mensaje a mostrar al usuario
         sendMessage(array(
-            "fulfillmentText" => "En la ciudad de  ".$city."  la temperatura es de ".$temperatura." grados c".$result[0],
+            "fulfillmentText" => "En la ciudad de  ".$city."  la temperatura es de ".$temperatura." grados c".$extraido['name'],
             "source"=> "stobon"
         ));
     }else{
