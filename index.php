@@ -10,21 +10,23 @@ function processMessage($update) {
         //obtenemos la temperatura
         $temperatura = getTemperatura($city);
 
-            /*  $link = mysqli_connect("190.8.176.14", "masalc_stobon", "Stobon7120@");
+             $link = mysqli_connect("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon");
 
-                mysqli_select_db($link, "masalc_acarreos");
+                mysqli_select_db($link, "bot");
                 $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
-                $result = mysqli_query($link, "SELECT * FROM users where id='9'");
+                $result = mysqli_query($link, "SELECT * FROM users where id='1'");
                 mysqli_data_seek ($result, 0);
                 $extraido= mysqli_fetch_array($result);
 
+                $name= $extraido['name'];
+
                 mysqli_free_result($result);
 
-                mysqli_close($link);*/
+                mysqli_close($link);
          $extraido='SOY SERGIO TOBON';
         //creamos el mensaje a mostrar al usuario
         sendMessage(array(
-            "fulfillmentText" => "En la ciudad de  ".$city."  la temperatura es de ".$temperatura." grados c".$extraido,
+            "fulfillmentText" => "En la ciudad de  ".$city."  la temperatura es de ".$temperatura." grados c".$name,
             "source"=> "stobon"
         ));
     }else{
