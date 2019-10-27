@@ -5,44 +5,59 @@ function processMessage($buscar) {
         //parametros creados en el intent. En nuestro caso vendrá el nombre de la ciudad
         $params = $buscar["queryResult"]["parameters"];
         //obtenemos el nombre de la ciudad
-        $nroViaje= $params["nroviaje"];
-        
-        //obtenemos la temperatura
-       // $temperatura = getTemperatura($city);
+        $tipoConsulta=$params["tipoConsulta"];
 
-             $link = mysqli_connect("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon");
+            if($tipoConsulta ==='1'){
+            
+                    $nroViaje= $params["nroviaje"];
+                    
+                    //obtenemos la temperatura
+                // $temperatura = getTemperatura($city);
 
-                mysqli_select_db($link, "bot");
-                $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
-                $result = mysqli_query($link, "SELECT * FROM viajes where nroViaje=$nroViaje");
-                mysqli_data_seek ($result, 0);
-                $dataResult= mysqli_fetch_array($result);
+                        $link = mysqli_connect("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon");
 
-                $nroViaje= $dataResult['nroViaje'];
-                $estado= $dataResult['estado'];
-                $valorPago= $dataResult['valorPago'];
+                            mysqli_select_db($link, "bot");
+                            $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
+                            $result = mysqli_query($link, "SELECT * FROM viajes where nroViaje=$nroViaje");
+                            mysqli_data_seek ($result, 0);
+                            $dataResult= mysqli_fetch_array($result);
 
-                mysqli_free_result($result);
+                            $nroViaje= $dataResult['nroViaje'];
+                            $estado= $dataResult['estado'];
+                            $valorPago= $dataResult['valorPago'];
 
-                mysqli_close($link);
-        
-        //creamos el mensaje a mostrar al usuario
-       /* sendMessage(array(
-            "fulfillmentText" => "En la ciudad de  ".$city."  la temperatura es de ".$temperatura." grados c".$name,
-            "source"=> "stobon"
-        ));*/
+                            mysqli_free_result($result);
 
-        sendMessage(array(
-            "fulfillmentText" => "En numero de viaje ".$nroViaje."  Se cuentra en estado ".$estado." por un valor de ".$valorPago, " Si desea consultar otro numero lo puedes ingresar ",
-            "source"=> "stobon"
-        ));
+                            mysqli_close($link);
+                    
+                    //creamos el mensaje a mostrar al usuario
+                /* sendMessage(array(
+                        "fulfillmentText" => "En la ciudad de  ".$city."  la temperatura es de ".$temperatura." grados c".$name,
+                        "source"=> "stobon"
+                    ));*/
+
+                    sendMessage(array(
+                        "fulfillmentText" => "El numero de viaje ".$nroViaje."  Se cuentra en estado ".$estado." por un valor de $".$valorPago. " Si desea consultar otro numero lo puedes ingresar ",
+                        "source"=> "stobon"
+                    ));
+
+        }else{
+            //mensaje de error
+            sendMessage(array(
+                "fulfillmentText"=> "Esa informacion no la tengo",
+                "source"=> "example.com"
+            ));  
+        }
+
     }else{
         //mensaje de error
         sendMessage(array(
             "fulfillmentText"=> "Se ha producido un error",
             "source"=> "example.com"
         ));
+        
     }
+    
 }
 
 //obtenemos la temperatura por medio de la api de openweathermap.org
