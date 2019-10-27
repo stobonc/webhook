@@ -55,7 +55,7 @@ $json = file_get_contents("php://input");
 
 $arrayFulfillment = json_decode($json, true);
 if(isset($arrayFulfillment["queryResult"]["action"])) {
-    processMessage($buscar);
+    processMessage($arrayFulfillment);
 }
 
 
