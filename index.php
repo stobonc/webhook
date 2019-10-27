@@ -25,10 +25,20 @@ function processMessage($buscar) {
                             $nroViaje= $dataResult['nroViaje'];
                             $estado= $dataResult['estado'];
                             $valorPago= $dataResult['valorPago'];
-
                             mysqli_free_result($result);
-
                             mysqli_close($link);
+
+                            if($nroViaje===""){
+                                sendMessage(array(
+                                    "fulfillmentText" => "El numero de viaje ".$nroViaje."  Se cuentra en estado ".$estado." por un valor de $".$valorPago. " Si desea consultar otro numero lo puedes ingresar ",
+                                    "source"=> "stobon"
+                                ));
+                            }else{
+                                    sendMessage(array(
+                        "fulfillmentText" => "El numero de viaje ".$nroViaje." No se encuentra en el sistema ",
+                        "source"=> "stobon"
+                    ));
+                            }
                     
                     //creamos el mensaje a mostrar al usuario
                 /* sendMessage(array(
@@ -36,10 +46,7 @@ function processMessage($buscar) {
                         "source"=> "stobon"
                     ));*/
 
-                    sendMessage(array(
-                        "fulfillmentText" => "El numero de viaje ".$nroViaje."  Se cuentra en estado ".$estado." por un valor de $".$valorPago. " Si desea consultar otro numero lo puedes ingresar ",
-                        "source"=> "stobon"
-                    ));
+                    
 
         }else{
             //mensaje de error
