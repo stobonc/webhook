@@ -8,25 +8,32 @@ function processMessage($buscar) {
         $nroViaje= $params["nroviaje"];
         
         //obtenemos la temperatura
-        $temperatura = getTemperatura($city);
+       // $temperatura = getTemperatura($city);
 
              $link = mysqli_connect("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon");
 
                 mysqli_select_db($link, "bot");
                 $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
-                $result = mysqli_query($link, "SELECT * FROM users where id=$nroViaje");
+                $result = mysqli_query($link, "SELECT * FROM viajes where nroViaje=$nroViaje");
                 mysqli_data_seek ($result, 0);
                 $dataResult= mysqli_fetch_array($result);
 
-                $name= $dataResult['name'];
+                $nroViaje= $dataResult['nroViaje'];
+                $estado= $dataResult['estado'];
+                $valorPago= $dataResult['valorPago'];
 
                 mysqli_free_result($result);
 
                 mysqli_close($link);
         
         //creamos el mensaje a mostrar al usuario
-        sendMessage(array(
+       /* sendMessage(array(
             "fulfillmentText" => "En la ciudad de  ".$city."  la temperatura es de ".$temperatura." grados c".$name,
+            "source"=> "stobon"
+        ));*/
+
+        sendMessage(array(
+            "fulfillmentText" => "En numero de viaje ".$nroViaje."  Se cuentra en estado ".$estado." por un valor de ".$valorPago, " Si desea consultar otro numero lo puedes ingresar "
             "source"=> "stobon"
         ));
     }else{
