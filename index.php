@@ -38,7 +38,8 @@ function sendMessage($parameters) {
 
 //obtenemos el post desde dialogflow
 $update_response = file_get_contents("php://input");
-$update = json_decode($update_response, true);
+
+$update = json_decode($json, true);
 if(isset($update["queryResult"]["action"])) {
     processMessage($update);
 }
