@@ -12,7 +12,7 @@ function processMessage($update) {
         
         //creamos el mensaje a mostrar al usuario
         sendMessage(array(
-            "fulfillmentText" => "La temperatura para hoy en ".$city." es de ".$temperatura." grados c",
+            "fulfillmentText" => "La temperatura para hoy sergio es de ".$city." es de ".$temperatura." grados c",
             "source"=> "javamovil.info"
         ));
     }else{
