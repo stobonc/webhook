@@ -1,11 +1,11 @@
 <?php
-function processMessage($update) {
+function processMessage($buscar) {
     //el action getcontent que hemos indicado en el intent (action and parameters)
-    if($update["queryResult"]["action"] == "getcontent"){
+    if($buscar["queryResult"]["action"] == "getcontent"){
         //parametros creados en el intent. En nuestro caso vendrá el nombre de la ciudad
-        $params = $update["queryResult"]["parameters"];
+        $params = $buscar["queryResult"]["parameters"];
         //obtenemos el nombre de la ciudad
-        $city = $params["geo-city"];
+        $nroViaje= $params["nroviaje"];
         
         //obtenemos la temperatura
         $temperatura = getTemperatura($city);
@@ -14,16 +14,16 @@ function processMessage($update) {
 
                 mysqli_select_db($link, "bot");
                 $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
-                $result = mysqli_query($link, "SELECT * FROM users where id='1'");
+                $result = mysqli_query($link, "SELECT * FROM users where id=$nroViaje");
                 mysqli_data_seek ($result, 0);
-                $extraido= mysqli_fetch_array($result);
+                $dataResult= mysqli_fetch_array($result);
 
-                $name= $extraido['name'];
+                $name= $dataResult['name'];
 
                 mysqli_free_result($result);
 
                 mysqli_close($link);
-         $extraido='SOY SERGIO TOBON';
+        
         //creamos el mensaje a mostrar al usuario
         sendMessage(array(
             "fulfillmentText" => "En la ciudad de  ".$city."  la temperatura es de ".$temperatura." grados c".$name,
@@ -53,8 +53,10 @@ function sendMessage($parameters) {
 //obtenemos el post desde dialogflow
 $json = file_get_contents("php://input");
 
-$update = json_decode($json, true);
-if(isset($update["queryResult"]["action"])) {
-    processMessage($update);
+$arrayFulfillment = json_decode($json, true);
+if(isset($arrayFulfillment["queryResult"]["action"])) {
+    processMessage($buscar);
 }
+
+
 ?>
