@@ -35,7 +35,7 @@ function processMessage($buscar) {
                                 ));
                             }else{
                                     sendMessage(array(
-                        "fulfillmentText" => "El numero de viaje ".$nroViaje." No se encuentra en el sistema ",
+                        "fulfillmentText" => "El numero de viaje ".$params['nroviaje']." No se encuentra en el sistema ",
                         "source"=> "stobon"
                     ));
                             }
