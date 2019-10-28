@@ -89,16 +89,17 @@ function buscarCuenta($codTercero){
                     $nuevo_array['respuesta'][]= array('codTercero'=>$codTercero,'nombreTercero'=>$nombreTercero,'estado'=>$estado,'valorPago'=>$valorPago);
 
                     if($row['estado'] ==='PENDIENTE'){
-                        $valorPend=$valorPend + $row['valor'];
+                        number_format($valorPend,0, ',', '.')=$valorPend + $row['valor'];
                     }else{
-                        $valorPago=$valorPago + $row['valor'];
+                        number_format($valorPago,0, ',', '.')=$valorPago + $row['valor'];
                     }
 
                 }
 
                 $dato=json_decode($nuevo_array);
                 sendMessage(array(
-                    "fulfillmentText"=> "Valor Pendiente" .$valorPend. " valor Pago " .$valorPago,
+                    "fulfillmentText"=> "El usuario ".$nombreTercero. " ".$nombreTercero. " Tiene el siguiente estado de cuenta viajes con
+                     Valor Pendiente" .$valorPend. "  viajes con valor Pago " .$valorPago,
                     "source"=> "example.com"
                 ));
             }      
