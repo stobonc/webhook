@@ -30,14 +30,15 @@ function processMessage($buscar) {
 
                             if($nroViaje===""){
                                 sendMessage(array(
-                                    "fulfillmentText" => "El numero de viaje ".$nroViaje."  Se cuentra en estado ".$estado." por un valor de $".$valorPago. " Si desea consultar otro numero lo puedes ingresar ",
+                                    "fulfillmentText" => "El numero de viaje ".$params['nroviaje']." No se encuentra en el sistema ",
                                     "source"=> "stobon"
                                 ));
+                              
                             }else{
-                                    sendMessage(array(
-                        "fulfillmentText" => "El numero de viaje ".$params['nroviaje']." No se encuentra en el sistema ",
-                        "source"=> "stobon"
-                    ));
+                                sendMessage(array(
+                                    "fulfillmentText" => "El numero de viaje ".$nroViaje."  Se cuentra en estado ".$estado." por un valor de $".$valorPago. " Si desea consultar otro numero lo puedes ingresar ",
+                                    "source"=> "stobon"
+                                ));  
                             }
                     
                     //creamos el mensaje a mostrar al usuario
