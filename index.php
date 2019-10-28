@@ -18,8 +18,8 @@ function processMessage($buscar) {
                         buscarviaje($nroViaje);
                         break;
                     case 2:
-                        $nroViaje=$params['codTercero'];
-                        buscarCuenta($nroViaje);
+                        $codTercero=$params['codTercero'];
+                        buscarCuenta($codTercero);
 
                     break;
                     default:
@@ -49,12 +49,53 @@ function buscarCuenta($codTercero){
         exit;
     }
         $codTercero= $codTercero;
-       // $sql = "SELECT * from viajes where nroViaje=$codTercero";
 
-       sendMessage(array(
-        "fulfillmentText"=> "el codigo del tercero es  " .$codTercero,
-        "source"=> "example.com"
-    ));
+        $sql = "SELECT codTercero, nombreTercero,estado,sum(valorPago) as valor from viajes where codTercero=$codTercero
+        GROUP BY codTercero,estado,nombreTercero";
+
+        if (!$resultado = $mysqli->query($sql)) {
+            // ¡Oh, no! La consulta falló. 
+            // De nuevo, no hacer esto en un sitio público, aunque nosotros mostraremos
+            // cómo obtener información del error
+           /* echo "Error: La ejecución de la consulta falló debido a: \n";
+            echo "Query: " . $sql . "\n";
+            echo "Errno: " . $mysqli->errno . "\n";
+            echo "Error: " . $mysqli->error . "\n";*/
+            sendMessage(array(
+                "fulfillmentText"=> "Se ha producido un error en la consulta favor reportarlo", "Query " .$sql. " errno" .$mysqli->errno. " ERROR" .$mysqli->error,
+                "source"=> "example.com"
+            ));
+            exit;
+        }
+
+
+      if ($resultado->num_rows === 0) {
+            
+            sendMessage(array(
+                "fulfillmentText"=> "El numero de viaje " .$nroViaje. " No existe, intenta con otro número!",
+                "source"=> "example.com"
+            ));
+            exit;
+        }else{
+            // $actor = $resultado->fetch_assoc();
+                $nuevo_array=array();
+
+                while($fila = $resultado->fetch_assoc()){
+
+                    $codTercero=$fila['codTercero'];
+                    $nombreTercero=$fila['nombreTercero'];
+                    $estado=$fila['estado'];
+                    $valorPago=$fila['valor'];
+
+                    $nuevo_array['respuesta'][]= array('codTercero'=>$codTercero,'nombreTercero'=>$nombreTercero,'estado'=>$estado,'valorPago'=>$valorPago);
+
+                }
+
+                sendMessage(array(
+                    "fulfillmentText"=> "RESPUESTA" .json_encode($nuevo_array). " DESEA REALIZAR OTRA CONSULTA!",
+                    "source"=> "example.com"
+                ));
+                echo json_encode($nuevo_array);
 
 }
 
