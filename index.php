@@ -95,7 +95,7 @@ function buscarCuenta($codTercero){
                     "fulfillmentText"=> "RESPUESTA" .json_encode($nuevo_array). " DESEA REALIZAR OTRA CONSULTA!",
                     "source"=> "example.com"
                 ));
-                echo json_encode($nuevo_array);
+                
 
 }
 
