@@ -49,8 +49,8 @@ function buscarviaje($nroViaje){
     $nroViaje= $dataResult['nroViaje'];
     $estado= $dataResult['estado'];
     $valorPago= $dataResult['valorPago'];
-    mysqli_free_result($result);
-    mysqli_close($link);
+   // mysqli_free_result($result);
+    //mysqli_close($link);
 
     if(mysqli_num_rows($result)>0){
         sendMessage(array(
