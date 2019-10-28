@@ -52,7 +52,7 @@ function buscarviaje($nroViaje){
     mysqli_free_result($result);
     mysqli_close($link);
 
-    if(mysqli_num_rows($result != 0)){
+    if(mysqli_num_rows($result)>0){
         sendMessage(array(
             "fulfillmentText" => " si hay dato  " .$result,
             "source"=> "stobon"
@@ -60,7 +60,7 @@ function buscarviaje($nroViaje){
 
     }else{
     sendMessage(array(
-        "fulfillmentText" => " esta es la respuesta del result   " .$result,
+        "fulfillmentText" => " no hay dato   " .$result,
         "source"=> "stobon"
     ));
     }
