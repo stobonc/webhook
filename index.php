@@ -36,7 +36,7 @@ function processMessage($buscar) {
 }
 function buscarviaje($nroViaje){
 
-  /*  $link = mysqli_connect("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon");
+   $link = mysqli_connect("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon");
     mysqli_select_db($link, "bot");
 
     $nroViaje= $nroViaje;
@@ -65,11 +65,8 @@ function buscarviaje($nroViaje){
             "source"=> "stobon"
         ));  
         //echo "El numero de viaje ".$nroViaje." si existe ";
-    }*/
-    sendMessage(array(
-        "fulfillmentText" => "soy sergio",
-        "source"=> "stobon"
-    ));  
+    }
+    
 
 }
 
