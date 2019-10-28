@@ -39,7 +39,7 @@ function buscarviaje($nroViaje){
 
     $nroViaje= $nroViaje;
     $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
-    $result = mysqli_query($link, "SELECT * FROM viajes where nroViaje=$nroViaje");
+    $result = mysqli_query($link, "SELECT * FROM viajes where nroViaje = $nroViaje");
     mysqli_data_seek ($result, 0);
     $dataResult= mysqli_fetch_array($result);
 
@@ -49,7 +49,7 @@ function buscarviaje($nroViaje){
     mysqli_free_result($result);
     mysqli_close($link);
 
-    if($nroViaje==""){
+    if($nroViaje ==' '){
         sendMessage(array(
             "fulfillmentText" => "El numero de viaje ".$params['nroviaje']." No se encuentra en el sistema ",
             "source"=> "stobon"
