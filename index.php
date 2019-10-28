@@ -80,11 +80,12 @@ function buscarCuenta($codTercero){
                $nuevo_array=array();
                $valorPend=0;
                $valorPago=0;
+
                 while($row = $resultado->fetch_assoc()){
                     $codTercero=$row['codTercero'];
                     $nombreTercero=$row['nombreTercero'];
                     $estado=$row['estado'];
-                    $valorPago=$row['valor'];
+                   // $valorPago=$row['valor'];
                     $nuevo_array['respuesta'][]= array('codTercero'=>$codTercero,'nombreTercero'=>$nombreTercero,'estado'=>$estado,'valorPago'=>$valorPago);
 
                     if($row['estado'] ==='PENDIENTE'){
