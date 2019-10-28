@@ -8,8 +8,8 @@ function processMessage($buscar) {
         //parametros creados en el intent. En nuestro caso vendrá el nombre de la ciudad
         $params = $buscar["queryResult"]["parameters"];
         //obtenemos el nombre de la ciudad
-        $tipoConsulta=$params["tipoConsulta"];
-            if($tipoConsulta ==='1'){
+        $tipoConsulta = $params["tipoConsulta"];
+            //if($tipoConsulta ==='1'){
                 switch ($tipoConsulta) {
                     case 1:
                         buscarviaje($params['nroviaje']);
@@ -23,7 +23,7 @@ function processMessage($buscar) {
                 }
                     
                     //obtenemos la temperatura
-         }        // $temperatura = getTemperatura($city);
+        // }        // $temperatura = getTemperatura($city);
     }else{
         //mensaje de error
         sendMessage(array(
