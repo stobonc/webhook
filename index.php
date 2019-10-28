@@ -92,7 +92,7 @@ function buscarCuenta($codTercero){
 
                 $dato=json_decode($nuevo_array);
                 sendMessage(array(
-                    "fulfillmentText"=> "RESPUESTA DESEA REALIZAR OTRA CONSULTA!" .$dato,
+                    "fulfillmentText"=> "RESPUESTA DESEA REALIZAR OTRA CONSULTA!" .$valorPago,
                     "source"=> "example.com"
                 ));
             }      
