@@ -91,7 +91,7 @@ function buscarCuenta($codTercero){
                 }
 
                 sendMessage(array(
-                    "fulfillmentText"=> "RESPUESTA DESEA REALIZAR OTRA CONSULTA!" .json_decode($nuevo_array),
+                    "fulfillmentText"=> "RESPUESTA DESEA REALIZAR OTRA CONSULTA!" . JSON.stringify($nuevo_array),
                     "source"=> "example.com"
                 ));
             }      
