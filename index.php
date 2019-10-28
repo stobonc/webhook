@@ -36,48 +36,48 @@ function processMessage($buscar) {
 }
 function buscarviaje($nroViaje){
 
-   $link = mysqli_connect("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon");
-    mysqli_select_db($link, "bot");
-
-    $nroViaje= $nroViaje;
-    $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
-
-    $result = mysqli_query($link, "SELECT * FROM viajes where nroViaje = $nroViaje");
-    mysqli_data_seek ($result, 0);
-    $dataResult= mysqli_fetch_array($result);
-
-    $nroViaje= $dataResult['nroViaje'];
-    $estado= $dataResult['estado'];
-    $valorPago= $dataResult['valorPago'];
-   // mysqli_free_result($result);
-    //mysqli_close($link);
-
-    if(mysqli_num_rows($result)>0){
+    $mysqli = new mysqli("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon","bot");
+    if ($mysqli->connect_errno) {
         sendMessage(array(
-            "fulfillmentText" => " si hay dato  " .$result,
-            "source"=> "stobon"
+            "fulfillmentText"=> "Se ha producido un error en la consulta favor reportarlo al tel 1234567",
+            "source"=> "example.com"
         ));
-
-    }else{
-    sendMessage(array(
-        "fulfillmentText" => " no hay dato   " .$result,
-        "source"=> "stobon"
-    ));
+        exit;
     }
-   /* if($dataResult['nroViaje']){
-        sendMessage(array(
-            "fulfillmentText" => "El numero de viaje ".$params['nroviaje']." No se encuentra en el sistema ",
-            "source"=> "stobon"
-        ));
-       // echo "El numero de viaje ".$dataResult['nroViaje']." No se encuentra en el sistema ";
-      
-    }else{
-        sendMessage(array(
-            "fulfillmentText" => "El numero de viaje ".$nroViaje."  Se cuentra en estado ".$estado." por un valor de $".$valorPago. " Si desea consultar otro numero lo puedes ingresar ",
-            "source"=> "stobon"
-        ));  
-        //echo "El numero de viaje ".$nroViaje." si existe ";
-    }*/
+
+        $nroViaje= $nroViaje;
+        $sql = "SELECT * from viajes where nroViaje=$nroViaje";
+                
+        if (!$resultado = $mysqli->query($sql)) {
+            // ¡Oh, no! La consulta falló. 
+            // De nuevo, no hacer esto en un sitio público, aunque nosotros mostraremos
+            // cómo obtener información del error
+           /* echo "Error: La ejecución de la consulta falló debido a: \n";
+            echo "Query: " . $sql . "\n";
+            echo "Errno: " . $mysqli->errno . "\n";
+            echo "Error: " . $mysqli->error . "\n";*/
+            sendMessage(array(
+                "fulfillmentText"=> "Se ha producido un error en la consulta favor reportarlo",
+                "source"=> "example.com"
+            ));
+            exit;
+        }
+
+        if ($resultado->num_rows === 0) {
+            
+            sendMessage(array(
+                "fulfillmentText"=> "El numero de viaje " .$nroViaje. " No existe, intenta con otro número!",
+                "source"=> "example.com"
+            ));
+            exit;
+        }else{
+            $actor = $resultado->fetch_assoc();
+            sendMessage(array(
+                "fulfillmentText"=> "El numero de viaje " .$actor['nroViaje']. " se encuentra en estado ".$actor['estado']. 
+                " por un valor de ".$actor['valorPago']. " Desea consultar otro viaje ingrese el número",
+                "source"=> "example.com"
+            ));
+        }
     
 
 }
