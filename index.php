@@ -45,14 +45,13 @@ function buscarviaje($nroViaje){
         ));
         exit;
     }
-
         $nroViaje= $nroViaje;
         $sql = "SELECT * from viajes where nroViaje=$nroViaje";
                
-        sendMessage(array(
+       /* sendMessage(array(
                         "fulfillmentText"=>"ESTO ES" .$nroViaje. " este en numero que se envio",
                         "source"=>'SERGIO TOBON'
-                    ));
+                    ));*/
 
         if (!$resultado = $mysqli->query($sql)) {
             // ¡Oh, no! La consulta falló. 
