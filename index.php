@@ -14,7 +14,8 @@ function processMessage($buscar) {
                 $tipoConsulta='1';
                 switch ($tipoConsulta) {
                     case 1:
-                        buscarviaje($buscar);
+                        $nroViaje=$params['nroviaje'];
+                        buscarviaje($nroViaje);
                         break;
                     case 2:
 
