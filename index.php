@@ -77,9 +77,10 @@ function buscarviaje($nroViaje){
             exit;
         }else{
             $actor = $resultado->fetch_assoc();
+            $valorPago=money_format('%(#2n',$actor['valorPago']);
             sendMessage(array(
                 "fulfillmentText"=> "El numero de viaje " .$actor['nroViaje']. " se encuentra en estado ".$actor['estado']. 
-                " por un valor de ".$actor['valorPago']. " Desea consultar otro viaje ingrese el número",
+                " por un valor de ".$valorPago. " Desea consultar otro viaje ingrese el número",
                 "source"=> "example.com"
             ));
         }
