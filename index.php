@@ -11,10 +11,10 @@ function processMessage($buscar) {
         $tipoConsulta=$params["tipoConsulta"];
             if($tipoConsulta ==='1'){
                 switch ($tipoConsulta) {
-                    case '1':
+                    case 1:
                         buscarviaje($params['nroviaje']);
                         break;
-                    case '2':
+                    case 2:
 
                     break;
                     default:
@@ -61,7 +61,7 @@ function buscarviaje($nroViaje){
             "source"=> "stobon"
         ));  
     }
-
+}
 //creamos el mensaje a mostrar al usuario
 /* sendMessage(array(
 "fulfillmentText" => "En la ciudad de  ".$city."  la temperatura es de ".$temperatura." grados c".$name,
