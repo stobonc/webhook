@@ -1,7 +1,8 @@
 <?php
-   $link = mysqli_connect("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon");
-   mysqli_select_db($link, "bot");
-
+//echo'hola';
+   
+//$buscar='12345';
+  // processMessage($buscar);
 function processMessage($buscar) {
     //el action getcontent que hemos indicado en el intent (action and parameters)
     if($buscar["queryResult"]["action"] == "getcontent"){
@@ -10,9 +11,10 @@ function processMessage($buscar) {
         //obtenemos el nombre de la ciudad
         $tipoConsulta = $params["tipoConsulta"];
             //if($tipoConsulta ==='1'){
+                $tipoConsulta='1';
                 switch ($tipoConsulta) {
                     case 1:
-                        buscarviaje($params['nroviaje']);
+                        buscarviaje($buscar);
                         break;
                     case 2:
 
@@ -33,12 +35,16 @@ function processMessage($buscar) {
     }
 
     
-}
+
 
 function buscarviaje($nroViaje){
 
+    $link = mysqli_connect("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon");
+    mysqli_select_db($link, "bot");
+
     $nroViaje= $nroViaje;
     $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
+    
     $result = mysqli_query($link, "SELECT * FROM viajes where nroViaje = $nroViaje");
     mysqli_data_seek ($result, 0);
     $dataResult= mysqli_fetch_array($result);
@@ -54,12 +60,14 @@ function buscarviaje($nroViaje){
             "fulfillmentText" => "El numero de viaje ".$params['nroviaje']." No se encuentra en el sistema ",
             "source"=> "stobon"
         ));
+       // echo "El numero de viaje ".$dataResult['nroViaje']." No se encuentra en el sistema ";
       
     }else{
         sendMessage(array(
             "fulfillmentText" => "El numero de viaje ".$nroViaje."  Se cuentra en estado ".$estado." por un valor de $".$valorPago. " Si desea consultar otro numero lo puedes ingresar ",
             "source"=> "stobon"
         ));  
+        //echo "El numero de viaje ".$nroViaje." si existe ";
     }
 
 }
