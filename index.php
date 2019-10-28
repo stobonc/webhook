@@ -48,10 +48,9 @@ function buscarCuenta($codTercero){
         ));
         exit;
     }
-        $codTercero= $codTercero;
+        $codTercero = $codTercero;
 
-        $sql = "SELECT codTercero, nombreTercero,estado,sum(valorPago) as valor from viajes where codTercero=$codTercero
-        GROUP BY codTercero,estado,nombreTercero";
+        $sql = "SELECT codTercero, nombreTercero,estado,sum(valorPago) as valor from viajes where codTercero=$codTercero GROUP BY codTercero,estado,nombreTercero";
 
         if (!$resultado = $mysqli->query($sql)) {
             // ¡Oh, no! La consulta falló. 
@@ -95,10 +94,8 @@ function buscarCuenta($codTercero){
                     "fulfillmentText"=> "RESPUESTA DESEA REALIZAR OTRA CONSULTA!",
                     "source"=> "example.com"
                 ));
-                
-
+            }      
 }
-
 
 function buscarviaje($nroViaje){
 
