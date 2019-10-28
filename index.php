@@ -72,13 +72,13 @@ function buscarCuenta($codTercero){
       if ($resultado->num_rows === 0) {
             
             sendMessage(array(
-                "fulfillmentText"=> "El numero de viaje " .$nroViaje. " No existe, intenta con otro número!",
+                "fulfillmentText"=> "NO existe informacion con el tercero número " .$codTercero. " Intenta con otro número!",
                 "source"=> "example.com"
             ));
             exit;
         }else{
             // $actor = $resultado->fetch_assoc();
-                $nuevo_array=array();
+               $nuevo_array=array();
 
                 while($fila = $resultado->fetch_assoc()){
 
@@ -92,7 +92,7 @@ function buscarCuenta($codTercero){
                 }
 
                 sendMessage(array(
-                    "fulfillmentText"=> "RESPUESTA" .json_encode($nuevo_array). " DESEA REALIZAR OTRA CONSULTA!",
+                    "fulfillmentText"=> "RESPUESTA DESEA REALIZAR OTRA CONSULTA!",
                     "source"=> "example.com"
                 ));
                 
