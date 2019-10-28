@@ -57,7 +57,7 @@ function buscarviaje($nroViaje){
             echo "Errno: " . $mysqli->errno . "\n";
             echo "Error: " . $mysqli->error . "\n";*/
             sendMessage(array(
-                "fulfillmentText"=> "Se ha producido un error en la consulta favor reportarlo",
+                "fulfillmentText"=> "Se ha producido un error en la consulta favor reportarlo", "Query" .$sql. " errno" .$mysqli->errno. " ERROR" .$mysqli->error,
                 "source"=> "example.com"
             ));
             exit;
