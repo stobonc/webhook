@@ -11,13 +11,15 @@ function processMessage($buscar) {
         //obtenemos el nombre de la ciudad
         $tipoConsulta = $params["tipoConsulta"];
             //if($tipoConsulta ==='1'){
-                $tipoConsulta='1';
+               // $tipoConsulta='1';
                 switch ($tipoConsulta) {
                     case 1:
                         $nroViaje=$params['nroviaje'];
                         buscarviaje($nroViaje);
                         break;
                     case 2:
+                        $nroViaje=$params['codTercero'];
+                        buscarCuenta($nroViaje);
 
                     break;
                     default:
@@ -35,6 +37,28 @@ function processMessage($buscar) {
         ));
     }
 }
+
+function buscarCuenta($codTercero){
+
+    $mysqli = new mysqli("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon","bot");
+    if ($mysqli->connect_errno) {
+        sendMessage(array(
+            "fulfillmentText"=> "Se ha producido un error en la consulta favor reportarlo al tel 1234567",
+            "source"=> "example.com"
+        ));
+        exit;
+    }
+        $codTercero= $codTercero;
+       // $sql = "SELECT * from viajes where nroViaje=$codTercero";
+
+       sendMessage(array(
+        "fulfillmentText"=> "el codigo del tercero es  " .$codTercero,
+        "source"=> "example.com"
+    ));
+
+}
+
+
 function buscarviaje($nroViaje){
 
     $mysqli = new mysqli("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon","bot");
@@ -80,7 +104,7 @@ function buscarviaje($nroViaje){
            
             sendMessage(array(
                 "fulfillmentText"=> "El numero de viaje " .$actor['nroViaje']. " se encuentra en estado ".$actor['estado']. 
-                " por un valor de $".number_format($actor['valorPago'], 2, ',', '.'). " Desea consultar otro viaje ingrese el número",
+                " por un valor de $".number_format($actor['valorPago'], 0, ',', '.'). " Pesos *Desea consultar otro viaje ingrese el número",
                 "source"=> "example.com"
             ));
         }
