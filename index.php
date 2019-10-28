@@ -87,17 +87,17 @@ function buscarCuenta($codTercero){
                     $valorPago=$row['valor'];
                     $nuevo_array['respuesta'][]= array('codTercero'=>$codTercero,'nombreTercero'=>$nombreTercero,'estado'=>$estado,'valorPago'=>$valorPago);
 
-                    if($row['estado']=='PENDIENTE'){
-                        $valorP=$valorP +$row['valor'];
+                    if($row['estado'] ==='PENDIENTE'){
+                        $valorPend=$valorPend + $row['valor'];
                     }else{
-                        $valorPago=$valorPago +$row['valor'];
+                        $valorPago=$valorPago + $row['valor'];
                     }
 
                 }
 
                 $dato=json_decode($nuevo_array);
                 sendMessage(array(
-                    "fulfillmentText"=> "Valor Pendiente" .$valorPen. " valor Pago " .$valorPago,
+                    "fulfillmentText"=> "Valor Pendiente" .$valorPend. " valor Pago " .$valorPago,
                     "source"=> "example.com"
                 ));
             }      
