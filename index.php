@@ -78,21 +78,26 @@ function buscarCuenta($codTercero){
         }else{
             // $actor = $resultado->fetch_assoc();
                $nuevo_array=array();
-
-                while($fila = $resultado->fetch_assoc()){
-
-                    $codTercero=$fila['codTercero'];
-                    $nombreTercero=$fila['nombreTercero'];
-                    $estado=$fila['estado'];
-                    $valorPago=$fila['valor'];
-
+               $valorPend=0;
+               $valorPago=0;
+                while($row = $resultado->fetch_assoc()){
+                    $codTercero=$row['codTercero'];
+                    $nombreTercero=$row['nombreTercero'];
+                    $estado=$row['estado'];
+                    $valorPago=$row['valor'];
                     $nuevo_array['respuesta'][]= array('codTercero'=>$codTercero,'nombreTercero'=>$nombreTercero,'estado'=>$estado,'valorPago'=>$valorPago);
+
+                    if($row['estado']=='PENDIENTE'){
+                        $valorP=$valorP +$row['valor'];
+                    }else{
+                        $valorPago=$valorPago +$row['valor'];
+                    }
 
                 }
 
                 $dato=json_decode($nuevo_array);
                 sendMessage(array(
-                    "fulfillmentText"=> "RESPUESTA DESEA REALIZAR OTRA CONSULTA!" .$valorPago,
+                    "fulfillmentText"=> "Valor Pendiente" .$valorPen. " valor Pago " .$valorPago,
                     "source"=> "example.com"
                 ));
             }      
