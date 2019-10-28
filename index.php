@@ -47,7 +47,9 @@ function buscarviaje($nroViaje){
 
         $nroViaje= $nroViaje;
         $sql = "SELECT * from viajes where nroViaje=$nroViaje";
-                
+               
+        sendMessage(array("fulfillmentText"=>$nroViaje . " este en numero que se envio"));
+
         if (!$resultado = $mysqli->query($sql)) {
             // ¡Oh, no! La consulta falló. 
             // De nuevo, no hacer esto en un sitio público, aunque nosotros mostraremos
@@ -57,7 +59,7 @@ function buscarviaje($nroViaje){
             echo "Errno: " . $mysqli->errno . "\n";
             echo "Error: " . $mysqli->error . "\n";*/
             sendMessage(array(
-                "fulfillmentText"=> "Se ha producido un error en la consulta favor reportarlo", "Query" .$sql. " errno" .$mysqli->errno. " ERROR" .$mysqli->error,
+                "fulfillmentText"=> "Se ha producido un error en la consulta favor reportarlo", "Query " .$sql. " errno" .$mysqli->errno. " ERROR" .$mysqli->error,
                 "source"=> "example.com"
             ));
             exit;
