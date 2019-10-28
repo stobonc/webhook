@@ -33,10 +33,7 @@ function processMessage($buscar) {
             "source"=> "example.com"
         ));
     }
-
-    
-
-
+}
 function buscarviaje($nroViaje){
 
     $link = mysqli_connect("bots.cpsguuecnyoz.us-east-2.rds.amazonaws.com", "stobon7120", "7120Stobon");
@@ -44,7 +41,7 @@ function buscarviaje($nroViaje){
 
     $nroViaje= $nroViaje;
     $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
-    
+
     $result = mysqli_query($link, "SELECT * FROM viajes where nroViaje = $nroViaje");
     mysqli_data_seek ($result, 0);
     $dataResult= mysqli_fetch_array($result);
