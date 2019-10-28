@@ -98,7 +98,7 @@ function buscarCuenta($codTercero){
 
                 $dato=json_decode($nuevo_array);
                 sendMessage(array(
-                    "fulfillmentText"=> "El usuario ".$nombreTercero. " ".$nombreTercero. " Tiene el siguiente estado de cuenta viajes con
+                    "fulfillmentText"=> "El usuario ".$codTercero. " ".$nombreTercero. " Tiene el siguiente estado de cuenta viajes con
                      Valor Pendiente $" .number_format($valorPend,0,',','.'). " viaje con valor Pago $" .number_format($valorPago,0,',','.'),
                     "source"=> "example.com"
                 ));
