@@ -52,11 +52,18 @@ function buscarviaje($nroViaje){
     mysqli_free_result($result);
     mysqli_close($link);
 
+    if(empty($dataResult['nroViaje'])){
+        sendMessage(array(
+            "fulfillmentText" => " si hay dato  " .$result,
+            "source"=> "stobon"
+        ));
+
+    }else{
     sendMessage(array(
         "fulfillmentText" => " esta es la respuesta del result   " .$result,
         "source"=> "stobon"
     ));
-
+    }
    /* if($dataResult['nroViaje']){
         sendMessage(array(
             "fulfillmentText" => "El numero de viaje ".$params['nroviaje']." No se encuentra en el sistema ",
